@@ -1,4 +1,4 @@
-# Titios Burger API
+# Titos Burger API
 
 Bem-vindo ao repositório da API **Titos Burger**! Este projeto foi desenvolvido como parte de um exercício em sala de aula para suportar uma aplicação móvel dedicada a um restaurante de hambúrgueres fictício.
 
