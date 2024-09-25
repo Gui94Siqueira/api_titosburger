@@ -11,7 +11,7 @@ class modelProducts
             $image = htmlspecialchars($data["image"], ENT_NOQUOTES);
             $price = filter_var($data["price"], FILTER_SANITIZE_NUMBER_FLOAT);
             $description = htmlspecialchars($data["description"], ENT_NOQUOTES);
-            $id_category = filter_var($data['id_category'], FILTER_SANITIZE_NUMBER_INT);
+            $id_category = filter_var($data['id_category'], FILTER_SANITIZE_NUMBER_INT, FILTER_FLAG_ALLOW_FRACTION);
             $id_status = filter_var($data["id_status"], FILTER_SANITIZE_NUMBER_INT);
 
             $sql = "INSERT INTO tbl_product (product_name, image, price, description, id_category, id_status, created_at) VALUES
@@ -87,7 +87,7 @@ class modelProducts
             $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
             $name = htmlspecialchars($data["product_name"], ENT_NOQUOTES);
             $image = htmlspecialchars($data["image"], ENT_NOQUOTES);
-            $price = filter_var($data["price"], FILTER_SANITIZE_NUMBER_FLOAT);
+            $price = filter_var($data["price"], FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
             $description = htmlspecialchars($data["description"], ENT_NOQUOTES);
             $id_category = filter_var($data['id_category'], FILTER_SANITIZE_NUMBER_INT);
             $id_status = filter_var($data["id_status"], FILTER_SANITIZE_NUMBER_INT);
