@@ -90,7 +90,7 @@
             }
         }
 
-        public function authentication($data) {
+        public function auth($data) {
             try {
 
                 $username = htmlspecialchars($data['username'], ENT_NOQUOTES);
@@ -197,7 +197,7 @@
             }
         }   
 
-        public function getById($id) {
+        public function searchById($id) {
             try {
                 $id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
 
@@ -222,6 +222,17 @@
                 $mail = htmlspecialchars($data['mail'], ENT_NOQUOTES);
                 $password = htmlspecialchars($data['password'], ENT_NOQUOTES);
                 $status = filter_var($data['status'], FILTER_SANITIZE_NUMBER_INT);
+
+                $conn = connectionDB::connect();
+                $update = $conn->prepare("UPDATE tbl_users SET firstname = :firstname, lastname = :lastname, mail = :mail, pass_user = ':password', id_status = ':status' WHERE id = :id");
+                $update->bindParam(':fistname', $firstname);
+                $update->bindParam(':lastname', $lastname);
+                $update->bindParam(':mail', $mail);
+                $update->bindParam(':password', $password);
+                $update->bindParam(':status', $status);
+                $update->execute();
+
+                return true;
 
             } catch(PDOException $e) {
                 return false;
