@@ -5,7 +5,7 @@
             try{
 
                 $modelOrders = new modelOrders();
-                return $modelOrders->listOrderByClient();
+                return $modelOrders->listOrderByClient($id_user);
 
             } catch(PDOException $e) {
                 return false;
@@ -50,6 +50,7 @@
 
                 $modelOrders = new modelOrders();
                 return $modelOrders->createCard($data);
+
             } catch(PDOException $e) {
                 return false;
             }
@@ -59,7 +60,8 @@
             try{
 
                 $modelOrders = new modelOrders();
-                return $modelOrders->listAllOrders($data);
+                return $modelOrders->listAllOrders();
+
             } catch(PDOException $e) {
                 return false;
             }
@@ -70,12 +72,12 @@
 
                 $modelOrders = new modelOrders();
                 return $modelOrders->insertItenCard($data);
+                
             } catch(PDOException $e) {
                 return false;
             }
         }
 
-    
         public function updateOrder($id, $data) {
             try{
 

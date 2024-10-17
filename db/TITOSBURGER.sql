@@ -99,9 +99,58 @@ CREATE TABLE IF NOT EXISTS tbl_users (
     FOREIGN KEY (id_status) REFERENCES tbl_status(id_status)
 );
 
+CREATE TABLE IF NOT EXISTS tbl_tokens (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    token VARCHAR(8),
+    username VARCHAR(100),
+    expired_at DATETIME,
+    created_at DATETIME
+);
+
+CREATE TABLE IF NOT EXISTS tbl_users_roles (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    id_user INT,
+    ´group´ VARCHAR(10),
+    created_at DATETIME,
+    updated_at DATETIME
+);
+
+select * from tbl_status;
+
 insert into tbl_categories(category_name, image, id_status) VALUES 
 	("Lanches", "", 1);
 
 ALTER TABLE tbl_product
 	ADD image VARCHAR(50) NULL AFTER `product_name`;
+
+DELIMITER //
+
+CREATE PROCEDURE spCreateOrder(
+	IN id_cart INT,
+    in id_user INT
+)
+
+BEGIN
+
+	/* Criar o pedido e obter o ID para relacionar os produtos e este pedido */
+	DECLARE id INT DEFAULT 0;
+	INSERT INTO tbl_orders (id_user, id_status, created_at) VALUES (id_user, id_status, NOW() );
+    SET id = (SELECT LAST_INSERT_ID());
+    
+    INSERT INTO tbl_itensOrders
+		SELECT 
+			NULL as id_order, 
+			id_product, 
+			price_product, 
+			qtd, 
+			NOW() as created_at,
+			NULL as updated_at
+		FROM tbl_itensCart WHERE id_cart = id_cart AND id_user = id_user;
+        
+        DELETE FROM tbl_itensCart WHERE id_cart = id_cart AND id_user = id_user;
+        DELETE FROM tbl_cart WHERE id_cart = id_cart AND id_user = id_user;
+
+END //
+
+
     
